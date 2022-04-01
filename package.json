@@ -1,0 +1,24 @@
+{
+  "name": "create-vite-plugin-ssr",
+  "version": "0.0.148",
+  "license": "MIT",
+  "type": "module",
+  "main": "index.js",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "bin": {
+    "create-vite-plugin-ssr": "index.js"
+  },
+  "scripts": {
+    "format:check": "prettier --check index.js",
+    "format": "prettier --write index.js"
+  },
+  "repository": "https://github.com/brillout/vite-plugin-ssr",
+  "devDependencies": {
+    "prettier": "^2.6.1"
+  },
+  "dependencies": {
+    "chalk": "^5.0.1"
+  }
+}
