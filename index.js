@@ -14,11 +14,12 @@ const cwd = process.cwd()
 class Boilerplate {
   constructor() {
     this.config = {
-      questionIcon: chalk.green.bold('?'),
-      question: chalk.bold('Please select a UI Framework:'),
-      pointerIcon: chalk.green('>'),
-      checkedIcon: chalk.green('✓'),
-      uncheckedIcon: chalk.grey('✓')
+      msgQuestion: chalk.bold('Please select a UI Framework:'),
+      msgCancel: 'Installer has been canceled!',
+      iconQuestion: chalk.green.bold('?'),
+      iconPointer: chalk.green('>'),
+      iconCheck: chalk.green('✓'),
+      iconUnchecked: chalk.grey('✓')
     }
     this.frameworks = {
       vue: {
@@ -48,6 +49,54 @@ class Boilerplate {
         name: 'Pre-rendering'
       }
     }
+    this.keypress = this.keypress.bind(this)
+    this.rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    })
+
+    stream.on('keypress', this.keypress)
+  }
+}
+
+Boilerplate.prototype.exit = function () {
+  this.rl.close()
+  stream.removeListener('keypress', this.keypress)
+  readline.clearScreenDown(process.stdout)
+}
+
+Boilerplate.prototype.cancel = function () {
+  this.exit()
+  processOut.write(`\n\n${this.config.msgCancel}\n`)
+}
+
+Boilerplate.prototype.keypress = function (ch, key) {
+  key = key || {}
+
+  switch (key.name) {
+    case 'up':
+      console.log(key.name)
+      break
+    case 'down':
+      console.log(key.name)
+      break
+    case 'left':
+      console.log(key.name)
+      break
+    case 'right':
+      console.log(key.name)
+      break
+    case 'space':
+      console.log(key.name)
+      break
+    case 'return':
+      console.log(key.name)
+      break
+    case 'escape':
+      this.cancel()
+      break
+    default:
+      break
   }
 }
 
@@ -59,9 +108,9 @@ async function init() {
   readline.clearScreenDown(process.stdout)
 
   processOut.write(`${chalk.blue.bgMagenta.bold(pkg.name)} v${pkg.version}\n\n`)
-  processOut.write(`${bp.config.questionIcon} ${bp.config.question}\n\n`)
+  processOut.write(`${bp.config.iconQuestion} ${bp.config.msgQuestion}\n\n`)
 
-  processOut.write(bp.config.pointerIcon)
+  processOut.write(bp.config.iconPointer)
 }
 
 init().catch(e => {
