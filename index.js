@@ -3,8 +3,8 @@ import readline from 'readline'
 import chalk from 'chalk'
 import { readFile } from 'fs/promises'
 
-var stream = process.stdin
-var processOut = process.stdout
+let stream = process.stdin
+let processOut = process.stdout
 const blank = '\n'.repeat(process.stdout.rows)
 
 const pkg = JSON.parse(await readFile(new URL('./package.json', import.meta.url)))
