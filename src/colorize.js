@@ -3,10 +3,10 @@
 /**
  * @param {Array<number, number>} code
  * @param {string} string
- * @returns {string | never}
+ * @returns {string}
  */
 const colorized = (code, string) => {
-  if (!process.stdout.hasColors()) return
+  if (!process.stdout.hasColors()) return string
   return `\x1b[${code[0]}m${string}\x1b[${code[1]}m`
 }
 
