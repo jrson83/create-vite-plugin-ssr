@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @param {Array<number, number>} code
+ * @param {number[]} code
  * @param {string} string
  * @returns {string}
  */

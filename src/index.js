@@ -2,10 +2,7 @@
 
 // @ts-check
 
-import util from 'util'
 import createPromt from './prompt.js'
-
-console.log(util.inspect.colors)
 
 async function init() {
   const promt = new createPromt()
