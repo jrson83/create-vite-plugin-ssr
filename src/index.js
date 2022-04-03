@@ -2,8 +2,23 @@
 
 // @ts-check
 
-import colorize from './colorize.js'
+import util from 'util'
+import createPromt from './prompt.js'
 
-console.log(colorize.red('Test'))
+console.log(util.inspect.colors)
 
-console.log(colorize.red(colorize.underline('Test')))
+async function init() {
+  const promt = new createPromt()
+
+  promt.welcome()
+
+  const targetDir = await promt.package()
+
+  console.log(`\n${promt.config.iconSuccess} Scaffolding project in ${targetDir} ...\n`)
+
+  const framework = await promt.framework()
+}
+
+init().catch(e => {
+  console.error(e)
+})
