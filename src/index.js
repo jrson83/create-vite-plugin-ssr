@@ -8,7 +8,7 @@ import colorize from './colorize.js'
 async function init() {
   let pkgPromt = await packagePrompt()
 
-  console.log(`${colorize.bgMagenta(colorize.bold(pkgPromt?.name))} v${pkgPromt?.version}\n`)
+  console.log(`${colorize.bgMagenta(colorize.bold(pkgPromt.name))} v${pkgPromt.version}\n`)
 
   let targetDir = await inputPrompt({
     question: `${colorize.cyan('ℹ ')} ${colorize.bold('Please select a project name:')} `
