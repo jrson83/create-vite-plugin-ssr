@@ -1,17 +1,33 @@
 // @ts-check
 
+import colorize from './colorize.js'
 import readline from 'node:readline'
+import { readFile } from 'node:fs/promises'
 
 const stdin = process.stdin
 const stdout = process.stdout
 
+const rl = readline.createInterface({ input: stdin, output: stdout })
+
+export async function packagePrompt() {
+  stdout.write('\n'.repeat(process.stdout.rows))
+  readline.cursorTo(stdout, 0, 0)
+  readline.clearScreenDown(stdout)
+
+  try {
+    const pkg = await readFile(new URL(`../package.json`, import.meta.url), { encoding: 'utf8' })
+    return JSON.parse(pkg)
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 /**
  * Create a simple input prompt
  * @param {{question: string}} object - Options
+ * @returns {Promise<string>}
  */
 export async function inputPrompt({ question }) {
-  const rl = readline.createInterface({ input: stdin, output: stdout })
-
   if (question === undefined) throw new Error('No question was specified.')
 
   /**
@@ -44,10 +60,9 @@ export async function inputPrompt({ question }) {
 /**
  * Create a simple select prompt
  * @param {{question: string, options: string[], pointer: any}} object - Options
+ * @returns {Promise<string>}
  */
 export async function selectPrompt({ question, options, pointer }) {
-  const rl = readline.createInterface({ input: stdin, output: stdout })
-
   if (question === undefined) throw new Error('No question was specified.')
   if (options === undefined) throw new Error('No options were specified.')
   if (pointer === undefined) throw new Error('No pointer was specified.')
@@ -61,14 +76,17 @@ export async function selectPrompt({ question, options, pointer }) {
     stdout.clearScreenDown()
 
     for (let opt = 0; opt < options.length; opt++) {
-      let option = opt === selectIndex ? `\x1b[35m> ${options[opt]}` : options[opt]
+      let option =
+        opt === selectIndex
+          ? `${colorize.cyan(pointer)} ${colorize.cyan(colorize.underline(options[opt]))}`
+          : `   ${options[opt]}`
       stdout.write(`${option}\x1b[0m${opt !== options.length - 1 ? '\n' : ''}`)
     }
     stdout.write('\x1B[?25l')
   }
 
   return new Promise((resolve, reject) => {
-    stdout.write(`${question}\n\n`)
+    console.log(`${question} ${colorize.grey('... (Press <up> / <down> to select, <return> to confirm)')}\n\n`)
 
     readline.emitKeypressEvents(stdin)
     if (stdin.isTTY) {

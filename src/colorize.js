@@ -11,11 +11,19 @@ const colorized = (code, string) => {
 }
 
 /**
- * @type {{green(arg0: string): string, red(arg0: string): string, bgMagenta(arg0: string): string, bold(arg0: string): string, underline(arg0: string): string}}
+ * @type {{cyan(arg0: string): string, green(arg0: string): string, grey(arg0: string): string, red(arg0: string): string, bgMagenta(arg0: string): string, bold(arg0: string): string, underline(arg0: string): string}}
  */
 const colorize = {
+  cyan(string) {
+    const code = [36, 39]
+    return colorized(code, string)
+  },
   green(string) {
     const code = [32, 39]
+    return colorized(code, string)
+  },
+  grey(string) {
+    const code = [90, 39]
     return colorized(code, string)
   },
   red(string) {
