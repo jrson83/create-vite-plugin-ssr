@@ -16,7 +16,6 @@
   },
   "repository": "https://github.com/brillout/vite-plugin-ssr",
   "devDependencies": {
-    "prettier": "^2.6.1",
-    "win-tasklist": "^2.2.0"
+    "prettier": "^2.6.1"
   }
 }
