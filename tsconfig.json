@@ -1,0 +1,21 @@
+{
+  "exclude": ["node_modules", "dist", "templates"],
+  "compilerOptions": {
+    "strict": false,
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "dist",
+
+    "jsx": "react",
+    "lib": ["ES2019"],
+    "module": "CommonJS",
+    "target": "es2019",
+    "moduleResolution": "Node",
+
+    "esModuleInterop": true,
+    "resolveJsonModule": false,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
