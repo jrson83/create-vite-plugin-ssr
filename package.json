@@ -26,12 +26,15 @@
     "dev:update": "ts-node --files src/update/index.tsx",
     "dev:create": "ts-node --files src/index.tsx",
     "build:update": "tsc && node dist/update/index.js",
-    "build:create": "tsc && node dist/index.js"
+    "build:create": "tsc && node dist/index.js",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@badisi/latest-version": "^2.1.3",
     "@types/node": "^17.0.23",
     "@types/react": "^18.0.1",
+    "husky": "^7.0.0",
+    "pretty-quick": "^3.1.3",
     "ts-node": "^10.7.0",
     "tslib": "^2.3.1",
     "typescript": "^4.6.3"
