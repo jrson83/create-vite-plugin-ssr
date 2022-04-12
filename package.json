@@ -39,7 +39,6 @@
   "dependencies": {
     "figures": "^3.2.0",
     "ink": "^3.2.0",
-    "ink-select-input": "^4.2.1",
     "ink-text-input": "^4.0.3",
     "prettier": "^2.6.2",
     "react": "^17.0.2"

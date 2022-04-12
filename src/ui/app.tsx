@@ -2,7 +2,7 @@
 import React, { FC, useEffect, useMemo, useState } from 'react'
 import { useInput, useApp, Box, Text } from 'ink'
 import TextInput from 'ink-text-input'
-import SelectInput from 'ink-select-input'
+import SelectInput from './components/ink-select-input'
 import figures from 'figures'
 import { HELP, STEPS, TEMPLATES } from '../constants'
 import useGenerator from '../generator/useGenerator'

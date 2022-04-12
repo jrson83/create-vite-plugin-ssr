@@ -1,3 +1,4 @@
+export * from './arrayRotate'
 export * from './clearConsole'
 export * from './copy'
 export * from './copyDir'
