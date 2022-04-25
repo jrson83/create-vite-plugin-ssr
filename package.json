@@ -1,0 +1,65 @@
+{
+  "name": "create-vite-plugin-ssr",
+  "version": "0.1.0-beta.1",
+  "packageManager": "pnpm@6.32.9",
+  "private": false,
+  "scripts": {
+    "========= Only allow pnpm; forbid yarn & npm": "",
+    "preinstall": "npx only-allow pnpm",
+    "========= Format": "",
+    "// Run prettier": "",
+    "format": "pnpm run format:bp && pnpm run format:cli && pnpm run format:types",
+    "format:bp": "pnpm run --filter @create-vite-plugin-ssr/boilerplate format",
+    "format:cli": "pnpm run --filter @create-vite-plugin-ssr/cli format",
+    "format:types": "pnpm run --filter @create-vite-plugin-ssr/typings format",
+    "========= Clean": "",
+    "// Remove all generated files": "",
+    "clean:bp": "pnpm run --filter @create-vite-plugin-ssr/boilerplate clean",
+    "clean:cli": "pnpm run --filter @create-vite-plugin-ssr/cli clean",
+    "========= Dev": "",
+    "dev:preact": "pnpm run --filter @create-vite-plugin-ssr/boilerplate dev:preact",
+    "dev:react": "pnpm run --filter @create-vite-plugin-ssr/boilerplate dev:react",
+    "dev:vue": "pnpm run --filter @create-vite-plugin-ssr/boilerplate dev:vue",
+    "dev:cli": "pnpm run --filter @create-vite-plugin-ssr/cli dev",
+    "========= Build": "",
+    "build:cli": "pnpm run --filter @create-vite-plugin-ssr/cli build",
+    "========= Preview": "",
+    "preview:cli": "pnpm run --filter @create-vite-plugin-ssr/cli preview",
+    "========= Misc": "",
+    "list": "pnpm recursive list",
+    "list:workspaces": "pnpm m ls --depth -1 --porcelain"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.25",
+    "@types/prettier": "^2.6.0",
+    "prettier": "^2.6.2",
+    "ts-node": "^10.7.0",
+    "tslib": "^2.4.0",
+    "typescript": "^4.6.3"
+  },
+  "engines": {
+    "node": ">=12.19.0"
+  },
+  "files": [
+    "./packages/boilerplate/**/*",
+    "./packages/cli/dist/**/*"
+  ],
+  "workspaces": [
+    "./packages/*"
+  ],
+  "bin": {
+    "create-vite-plugin-ssr": "./bin/cli.js"
+  },
+  "description": "CLI & UI package for scaffolding @create-vite-plugin-ssr boilerplates",
+  "repository": "https://github.com/jrson83/create-vite-plugin-ssr",
+  "bugs": {
+    "url": "https://github.com/jrson83/create-vite-plugin-ssr/issues"
+  },
+  "homepage": "https://vite-plugin-ssr.com",
+  "license": "MIT",
+  "keywords": [
+    "vite",
+    "vite-plugin",
+    "ssr"
+  ]
+}

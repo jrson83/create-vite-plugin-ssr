@@ -1,0 +1,23 @@
+# Ignore the node_modules directory
+node_modules/
+
+# Ignore Logs
+logs
+*.log
+
+# Ignore the build directories
+bin/
+vite-app/
+
+# Ignore test directories
+test/
+__tests__/
+coverage
+
+# The file containing environment variables 
+.env
+
+# Ignore IDE specific files
+.idea/
+.vscode/
+*.sw*
