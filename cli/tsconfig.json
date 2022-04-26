@@ -1,0 +1,23 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./bin",
+    "rootDir": "./src",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "target": "es2019",
+    "lib": ["ES2019"],
+    "jsx": "react",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@create-vite-plugin-ssr/boilerplate/*": ["../boilerplate/src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "bin"]
+}

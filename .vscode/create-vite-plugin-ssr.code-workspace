@@ -1,0 +1,23 @@
+{
+  "folders": [
+    {
+      "name": "Root",
+      "path": "../"
+    },
+    {
+      "name": "Boilerplate",
+      "path": "../boilerplate"
+    },
+    {
+      "name": "CLI",
+      "path": "../cli"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "node_modules/": true,
+      "boilerplate": true,
+      "cli": true
+    },
+  }
+}

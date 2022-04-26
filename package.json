@@ -1,0 +1,59 @@
+{
+  "name": "create-vite-plugin-ssr",
+  "version": "0.1.0.beta-1",
+  "description": "CLI & UI package for scaffolding @vite-plugin-ssr boilerplates",
+  "private": true,
+  "packageManager": "pnpm@6.32.9",
+  "bin": {
+    "create-vite-plugin-ssr": "./cli/bin/cli.js"
+  },
+  "scripts": {
+    "========= Only allow pnpm; forbid yarn & npm": "",
+    "preinstall": "npx only-allow pnpm",
+    "========= Clean": "",
+    "clean": "pnpm run --filter @create-vite-plugin-ssr/cli clean",
+    "========= Prettier": "",
+    "format": "pnpm run format:boilerplate && pnpm run format:cli",
+    "format:boilerplate": "pnpm run --filter @create-vite-plugin-ssr/boilerplate format",
+    "format:cli": "pnpm run --filter @create-vite-plugin-ssr/cli format",
+    "========= Dev": "",
+    "dev": "echo \"Please specify either CLI or a UI Framework: dev:cli | dev:preact|react|vue\"",
+    "dev:preact": "pnpm run --filter @create-vite-plugin-ssr/boilerplate dev:preact",
+    "dev:react": "pnpm run --filter @create-vite-plugin-ssr/boilerplate dev:react",
+    "dev:vue": "pnpm run --filter @create-vite-plugin-ssr/boilerplate dev:vue",
+    "dev:cli": "pnpm run --filter @create-vite-plugin-ssr/cli dev",
+    "========= Build": "",
+    "build:cli": "pnpm run --filter @create-vite-plugin-ssr/cli build",
+    "========= Prod; build & preview": "",
+    "prod:cli": "pnpm run --filter @create-vite-plugin-ssr/cli prod",
+    "========= Preview": "",
+    "preview:cli": "pnpm run --filter @create-vite-plugin-ssr/cli preview",
+    "========= Misc": "",
+    "list": "pnpm recursive list",
+    "list:workspaces": "pnpm m ls --depth -1 --porcelain"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.27",
+    "prettier": "^2.6.2",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  },
+  "engines": {
+    "node": ">=12.19.0"
+  },
+  "workspaces": [
+    "boilerplate",
+    "cli"
+  ],
+  "repository": "https://github.com/jrson83/create-vite-plugin-ssr",
+  "bugs": {
+    "url": "https://github.com/jrson83/create-vite-plugin-ssr/issues"
+  },
+  "homepage": "https://vite-plugin-ssr.com",
+  "license": "MIT",
+  "keywords": [
+    "vite",
+    "vite-plugin",
+    "ssr"
+  ]
+}

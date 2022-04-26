@@ -1,0 +1,5 @@
+# Ignore source directory
+src/
+
+# Ignore generator test directory
+vite-app/
