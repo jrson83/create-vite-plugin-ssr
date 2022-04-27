@@ -15,7 +15,7 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@create-vite-plugin-ssr/boilerplate/*": ["../boilerplate/src/*"]
+      "@create-vite-plugin-ssr/boilerplate/*": ["../boilerplate/*"]
     }
   },
   "include": ["src"],
