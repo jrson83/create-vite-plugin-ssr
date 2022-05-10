@@ -1,27 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { useInput, useApp, Box, Text } from 'ink'
-import { FixedTextInput } from './components/TextInput'
 import figures from 'figures'
 
-import { useCLI } from './reducer'
-import { Failure } from './components/Failure'
-import { buildApp } from './buildApp'
-import { selectOptions, STEP } from './types'
+import { selectOptions } from './config'
+import { useCLI } from './hooks'
+import { Failure } from './components'
+import { TaskList } from './components'
+import { FixedTextInput } from './components'
+import { STEP } from './types'
 
 export { App }
 
 function App() {
   const { exit } = useApp()
 
-  const { state, setSelectedDir, setRenameDir, setRenamedDir, setSelectedOptions } = useCLI()
+  const { state, setSelectedDir, setRenameDir, setRenamedDir, setSelectedOptions, setStartBuild, setCompleted } =
+    useCLI()
+
+  const { errors, errorMessages, isProcessingTask, selectedOptions, step, targetDir } = state
 
   const [selectedRow, setSelectedRow] = useState<number>(0)
   const [selectedValues, setSelectedValues] = useState(selectOptions.map(() => 0))
 
   useEffect(() => {
-    if (state.step == STEP.SELECTED_OPTIONS && state.targetDir != '' && typeof state.selectedOptions !== 'undefined') {
-      // Here we execute generator ...
-      buildApp(state)
+    if (step === STEP.SELECTED_OPTIONS && targetDir != '' && typeof selectedOptions !== 'undefined') {
+      setStartBuild().finally(() => {
+        setCompleted()
+      })
     }
   })
 
@@ -31,7 +36,7 @@ function App() {
         exit()
       }
 
-      if (state.step === STEP.SELECT_DIR) {
+      if (step === STEP.SELECT_DIR) {
         if (input === 'r') {
           setRenameDir()
         }
@@ -43,7 +48,7 @@ function App() {
         return null
       }
 
-      if (state.step === STEP.RENAME_DIR) {
+      if (step === STEP.RENAME_DIR) {
         /* if (key.return) {
           setRenamedDir('test')
         } 
@@ -51,8 +56,9 @@ function App() {
         return null*/
       }
 
-      if (state.step === STEP.INIT || state.step === STEP.SELECTED_DIR || state.step === STEP.RENAMED_DIR) {
+      if (step === STEP.INIT || step === STEP.SELECTED_DIR || step === STEP.RENAMED_DIR) {
         if (key.return) {
+          if (isProcessingTask) return
           setSelectedOptions(selectedValues)
         }
 
@@ -88,10 +94,10 @@ function App() {
         <Box marginRight={1}>
           <Text backgroundColor="magenta"> {process.env.npm_package_name} </Text>
         </Box>
-        <Text>v{process.env.npm_package_version}</Text>
+        <Text color="gray">v{process.env.npm_package_version}</Text>
       </Box>
       {/* Display warning when `vite-app` dir exist & is not empty */}
-      {state.step === STEP.SELECT_DIR && (
+      {step === STEP.SELECT_DIR && (
         <Failure
           message={[
             'Target directory <vite-app> is not empty.',
@@ -100,81 +106,120 @@ function App() {
         />
       )}
       {/* Display errors messages when useReducer validation fails */}
-      {state.errors && state.errorMessages && <Failure message={[state.errorMessages]} />}
+      {errors && errorMessages && <Failure message={[errorMessages]} />}
       {/* Input prompt for dir */}
-      {state.step == STEP.RENAME_DIR && (
+      {step == STEP.RENAME_DIR && (
         <Box marginBottom={1} marginRight={1}>
           <Text color="cyanBright">{figures.questionMarkPrefix}</Text>
           <Box marginX={1}>
             <Text bold>Please select a project directory:</Text>
           </Box>
-          <FixedTextInput initialValue={state.targetDir} onSubmit={setRenamedDir} />
+          <FixedTextInput initialValue={targetDir} onSubmit={setRenamedDir} />
         </Box>
       )}
       {/* Message when alternative dir is set */}
-      {state.step == STEP.RENAMED_DIR && (
+      {step === STEP.RENAMED_DIR && (
         <Box marginBottom={1} marginRight={1}>
           <Text color="green">{figures.tick}</Text>
           <Box marginLeft={2}>
-            <Text>{`New project directory set to <${state.targetDir}>`}. Please continue with setup.</Text>
+            <Text>{`New project directory set to <${targetDir}>`}. Please continue with setup.</Text>
           </Box>
         </Box>
       )}
       {/* Message when dir accepted */}
-      {state.step == STEP.SELECTED_DIR && (
+      {step === STEP.SELECTED_DIR && (
         <Box marginBottom={1} marginRight={1}>
           <Text color="green">{figures.tick}</Text>
           <Box marginLeft={2}>
-            <Text>{`Existing dir <${state.targetDir}>`} will be removed.</Text>
+            <Text>{`Existing dir <${targetDir}>`} will be removed.</Text>
           </Box>
         </Box>
       )}
+      {/* Tasklist when build starts */}
+      {step === STEP.START_BUILD && <TaskList state={state} />}
+      {/* Message when build is completed */}
+      {step === STEP.COMPLETED_BUILD && (
+        <>
+          <Box marginBottom={1} marginRight={1}>
+            <Text backgroundColor="green"> DONE </Text>
+            <Box marginLeft={2}>
+              <Text color="green">{`Boilerplate successfully generated in <${targetDir}> directory`}.</Text>
+            </Box>
+          </Box>
+          <Box marginBottom={1}>
+            <Text>Get started:</Text>
+          </Box>
+          <Box>
+            <Box marginBottom={1} marginLeft={3} flexDirection="column">
+              <Box flexDirection="row">
+                <Text>1. cd </Text>
+                <Text color="cyanBright">{targetDir}</Text>
+              </Box>
+              <Box flexDirection="row">
+                <Text>2. </Text>
+                <Text color="cyanBright">npm install</Text>
+                <Text> or </Text>
+                <Text color="cyanBright">yarn install</Text>
+              </Box>
+              <Box flexDirection="row">
+                <Text>3. </Text>
+                <Text color="cyanBright">npm run dev</Text>
+                <Text> or </Text>
+                <Text color="cyanBright">yarn dev</Text>
+              </Box>
+            </Box>
+          </Box>
+          <Box marginBottom={1}>
+            <Text color="gray">Please visit the documentation for more information: https://vite-plugin-ssr.com/</Text>
+          </Box>
+        </>
+      )}
       {/* Initial selector */}
-      <Box flexDirection="column">
-        <Box marginBottom={1} marginRight={1}>
-          <Text color="cyanBright">{figures.questionMarkPrefix}</Text>
-          <Box marginLeft={1}>
-            <Text {...(!state.targetDir ? { color: 'grey' } : { bold: true })}>
-              Please select the project features:
+      {step != STEP.START_BUILD && step != STEP.COMPLETED_BUILD && (
+        <Box flexDirection="column">
+          <Box marginBottom={1} marginRight={1}>
+            <Text color="cyanBright">{figures.questionMarkPrefix}</Text>
+            <Box marginLeft={1}>
+              <Text {...(!targetDir ? { color: 'grey' } : { bold: true })}>Please select the project features:</Text>
+            </Box>
+          </Box>
+          <Box flexDirection="column" marginBottom={1}>
+            {selectOptions.map(({ label, values }: any, i: any) => {
+              const cursor = <>{i === selectedRow ? figures.pointerSmall : ' '}</>
+              return (
+                <Box key={i}>
+                  <Box width={20} paddingBottom={i === 0 ? 1 : 0}>
+                    <Text bold color="cyanBright">
+                      {cursor}
+                      {'  '}
+                    </Text>
+                    <Text>{label}:</Text>
+                  </Box>
+                  {values.map((val: string, j: number) => {
+                    const padding = Math.abs(val.length - 9)
+                    return (
+                      <Box key={j} paddingRight={padding}>
+                        <Text
+                          {...(j === selectedValues[i] && { color: 'cyanBright' })}
+                          {...(j === selectedValues[i] && i === selectedRow && { underline: true })}
+                        >
+                          {val}
+                        </Text>
+                      </Box>
+                    )
+                  })}
+                </Box>
+              )
+            })}
+          </Box>
+          {/* Key hint */}
+          <Box marginBottom={1}>
+            <Text color="gray">
+              {`Press <left-arrow> / <right-arrow> to select value\nPress <up-arrow> / <down-arrow> to select row\nPress <return> to confirm`}
             </Text>
           </Box>
         </Box>
-        <Box flexDirection="column" marginBottom={1}>
-          {selectOptions.map(({ label, values }: any, i: any) => {
-            const cursor = <>{i === selectedRow ? figures.pointerSmall : ' '}</>
-            return (
-              <Box key={i}>
-                <Box width={20} paddingBottom={i === 0 ? 1 : 0}>
-                  <Text bold color="cyanBright">
-                    {cursor}
-                    {'  '}
-                  </Text>
-                  <Text>{label}:</Text>
-                </Box>
-                {values.map((val: string, j: number) => {
-                  const padding = Math.abs(val.length - 9)
-                  return (
-                    <Box key={j} paddingRight={padding}>
-                      <Text
-                        {...(j === selectedValues[i] && { color: 'cyanBright' })}
-                        {...(j === selectedValues[i] && i === selectedRow && { underline: true })}
-                      >
-                        {val}
-                      </Text>
-                    </Box>
-                  )
-                })}
-              </Box>
-            )
-          })}
-        </Box>
-        {/* Key hint */}
-        <Box marginBottom={1}>
-          <Text color="gray">
-            {`Press <left-arrow> / <right-arrow> to select value\nPress <up-arrow> / <down-arrow> to select row\nPress <return> to confirm`}
-          </Text>
-        </Box>
-      </Box>
+      )}
     </React.Fragment>
   )
 }

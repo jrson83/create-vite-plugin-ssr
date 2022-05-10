@@ -55,3 +55,12 @@ export function validateOptions(payload: SelectedOptions) {
     }
   }
 }
+
+export const delay = (sec: number): Promise<void | boolean> => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(true)
+      reject()
+    }, sec * 1000)
+  })
+}

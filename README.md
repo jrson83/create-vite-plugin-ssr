@@ -2,7 +2,7 @@
 
 This is hard WIP!
 
-pnpm monorepo with CLI & single-multi-framework-boilerplate (not yet included)
+pnpm monorepo with CLI & single-multi-framework-boilerplate
 
 ## Included UI Frameworks
 
@@ -38,6 +38,13 @@ $ pnpm run dev:preact|react|vue
 
 You can open the project as workspace with `.vscode/create-vite-plugin-ssr.code-workspace`
 
-# Todos
+# Todo
 
-- [ ] Create TodoList
+- [ ] Error output if async build-action fails
+- [ ] Implement generator for templates (UI Frameworks)
+- [ ] Implement more selectOptions for the generator (e.g. Typescript)
+- [ ] Make `copyFiles` work with `config.copyFiles`
+- [ ] Implement `detype`
+- [ ] Implement package.json updater for boilerplates
+- [ ] Testing and `targetDir` integration for `npx`
+- [ ] Code cleanup
