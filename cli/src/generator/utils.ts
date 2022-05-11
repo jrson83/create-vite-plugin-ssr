@@ -1,14 +1,12 @@
 import fs from 'fs'
 import path from 'path'
-import { boilerplateConfig, defaultTargetDir } from '../config'
+import { boilerplateConfig /* , defaultTargetDir */ } from '../config'
 
 const fsPromises = fs.promises
 
 const cwd = process.cwd()
 
 export const templateRootDir = path.join(cwd, 'vite-app')
-
-console.log('templateRootDir', defaultTargetDir)
 
 export const pathExists = (path: string) =>
   fsPromises
