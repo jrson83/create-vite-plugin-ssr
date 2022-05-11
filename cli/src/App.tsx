@@ -4,9 +4,7 @@ import figures from 'figures'
 
 import { selectOptions } from './config'
 import { useCLI } from './hooks'
-import { Failure } from './components'
-import { TaskList } from './components'
-import { FixedTextInput } from './components'
+import { Failure, FixedTextInput, TaskList } from './components'
 import { STEP } from './types'
 
 export { App }
