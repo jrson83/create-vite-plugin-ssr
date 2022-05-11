@@ -43,7 +43,7 @@ You can open the project as workspace with `.vscode/create-vite-plugin-ssr.code-
 - [ ] Error output if async build-action fails
 - [ ] Implement generator for templates (UI Frameworks)
 - [ ] Implement more selectOptions for the generator (e.g. Typescript)
-- [ ] Make `copyFiles` work with `config.copyFiles`
+- [x] Make `copyFiles` work with `config.copyFiles`
 - [ ] Implement `detype`
 - [ ] Implement package.json updater for boilerplates
 - [ ] Testing and `targetDir` integration for `npx`

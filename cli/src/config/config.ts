@@ -1,6 +1,6 @@
 import { delay } from '../utils'
 import {
-  copyFile,
+  generateFileCopies,
   generateBoilerplateDirs,
   generatePackageJson,
   generateTsConfig,
@@ -52,33 +52,36 @@ const Config: IConfig = Object.freeze({
   defaultTargetDir,
   boilerplateConfig: {
     createDirectories: ['pages/about', 'pages/index', 'renderer', 'server'],
-    // NOT DONE YET (NEEDS FRAMEWORK DISTINCTION )
-    copyFiles: [
-      {
-        src: 'pages/about/index.css',
-        output: 'pages/about/index.css'
-      },
-      {
-        src: 'renderer/logo.svg',
-        output: 'renderer/logo.svg'
-      },
-      {
-        src: 'renderer/PageShell.css',
-        output: 'renderer/PageShell.css'
-      },
-      {
-        src: 'renderer/types.ts',
-        output: 'renderer/types.ts'
-      },
-      {
-        src: '_gitignore',
-        output: '.gitignore'
-      },
-      {
-        src: '_vue.d.ts_',
-        output: 'vue.d.ts'
+    copyFiles: {
+      defaultFiles: [
+        {
+          src: 'renderer/logo.svg',
+          output: 'renderer/logo.svg'
+        },
+        {
+          src: 'renderer/types.ts',
+          output: 'renderer/types.ts'
+        },
+        {
+          src: 'server/index.ts',
+          output: 'server/index.ts'
+        },
+        {
+          src: '_gitignore',
+          output: '.gitignore'
+        }
+      ],
+      uiFiles: {
+        Vue: {
+          files: [
+            {
+              src: '_vue.d.ts_',
+              output: 'vue.d.ts'
+            }
+          ]
+        }
       }
-    ],
+    },
     // NOT DONE YET (JUST EXAMPLE STUFF HERE)
     buildTemplates: [
       {
@@ -137,7 +140,7 @@ const Config: IConfig = Object.freeze({
       title: 'Copying static files',
       async task() {
         // NOT DONE YET
-        await copyFile('../boilerplate/_gitignore', `${templateRootDir}/.gitignore`)
+        await generateFileCopies('Vue')
         await delay(1)
       }
     },
@@ -145,9 +148,9 @@ const Config: IConfig = Object.freeze({
       id: 4,
       title: 'Creating config files',
       async task() {
-        await generatePackageJson('Preact')
-        await generateTsConfig('Preact')
-        await generateViteConfig('Preact')
+        await generatePackageJson('Vue')
+        await generateTsConfig('Vue')
+        await generateViteConfig('Vue')
         await delay(1)
       }
     },

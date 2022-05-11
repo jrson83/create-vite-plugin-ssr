@@ -19,10 +19,20 @@ export interface IConfig {
   defaultTargetDir: typeof defaultTargetDir
   boilerplateConfig: {
     createDirectories: Array<string>
-    copyFiles: Array<{
-      src: string
-      output: string
-    }>
+    copyFiles: {
+      defaultFiles: Array<{
+        src: string
+        output: string
+      }>
+      uiFiles: {
+        [key in UIOption as string]: {
+          files: Array<{
+            src: string
+            output: string
+          }>
+        }
+      }
+    }
     buildTemplates: Array<{
       [key in UIOption]: {
         files: Array<{
