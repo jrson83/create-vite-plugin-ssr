@@ -4,7 +4,6 @@
   "private": false,
   "types": "./shim.d.ts",
   "scripts": {
-    "test": "ts-node index.ts",
     "========= Dev": "",
     "dev": "echo \"Please specify a UI Framework: dev:preact|react|vue\"",
     "========= Prod DISABLED": "",
