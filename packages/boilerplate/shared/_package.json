@@ -15,9 +15,9 @@
   "defaultDependencies": {
     "compression": "^1.7.4",
     "cross-env": "^7.0.3",
-    "express": "^4.17.3",
-    "vite": "^2.8.4",
-    "vite-plugin-ssr": "^0.3.61"
+    "express": "^4.18.1",
+    "vite": "^2.9.10",
+    "vite-plugin-ssr": "^0.3.64"
   },
   "preactDependencies": {
     "@babel/core": "^7.18.2",
