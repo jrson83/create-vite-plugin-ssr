@@ -93,5 +93,6 @@ $ pnpm run build:js
 - [x] Optimize .gitignore & .npmignore files
 - [ ] Optimize boilerplate dependencies
 - [ ] Integrate updater for boilerplate dependencies
+- [ ] Fix `$npm_package_version` for CLI
 - [ ] Fix annoying `package` folder popup in VS Code
 - [ ] Code cleanup
