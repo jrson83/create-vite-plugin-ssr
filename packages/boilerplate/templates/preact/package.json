@@ -1,0 +1,18 @@
+{
+  "name": "@create-vite-plugin-ssr/template-preact",
+  "private": false,
+  "files": [
+    "pages",
+    "renderer",
+    "package.json",
+    "vite.config.ts"
+  ],
+  "scripts": {
+    "dev": "cross-env VITE_APP_FRAMEWORK=Preact ts-node -P ./tsconfig.json ../../shared/server"
+  },
+  "devDependencies": {
+    "@create-vite-plugin-ssr/shared": "workspace:^",
+    "cross-env": "^7.0.3"
+  },
+  "license": "MIT"
+}

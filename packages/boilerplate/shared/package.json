@@ -1,0 +1,8 @@
+{
+  "name": "@create-vite-plugin-ssr/shared",
+  "private": false,
+  "scripts": {
+    "test": "ts-node index.ts"
+  },
+  "license": "MIT"
+}

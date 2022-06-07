@@ -1,0 +1,29 @@
+{
+  "name": "@create-vite-plugin-ssr/cli",
+  "version": "0.1.0.beta-1",
+  "description": "CLI package for scaffolding @vite-plugin-ssr boilerplates",
+  "private": false,
+  "main": "./bin/cli.js",
+  "files": [
+    "bin",
+    "package.json"
+  ],
+  "scripts": {
+    "clean": "rm -rf bin/ && rm -rf vite-app/",
+    "dev": "ts-node src/cli.tsx",
+    "build": "pnpm run clean && tsc --build",
+    "prod": "tsc --build && pnpm run preview",
+    "preview": "node bin/cli.js"
+  },
+  "dependencies": {
+    "@create-vite-plugin-ssr/templates": "workspace:^",
+    "figures": "^3.2.0",
+    "ink": "^3.2.0",
+    "ink-text-input": "^4.0.3",
+    "react": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.39"
+  },
+  "license": "MIT"
+}

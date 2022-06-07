@@ -1,0 +1,34 @@
+{
+  "folders": [
+    {
+      "name": "Root",
+      "path": "../"
+    },
+    {
+      "name": "Boilerplate",
+      "path": "../packages/boilerplate"
+    },
+    {
+      "name": "CLI",
+      "path": "../packages/cli"
+    },
+    {
+      "name": "Generator",
+      "path": "../packages/generator"
+    },
+    {
+      "name": "Templates",
+      "path": "../packages/templates"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/node_modules/": true,
+      "packages": true
+    },
+    // Disable ventur to fix VUE linter errors
+    "vetur.validation.template": false,
+    "vetur.validation.script": false,
+    "vetur.validation.style": false
+  }
+}

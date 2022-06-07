@@ -1,0 +1,4 @@
+# Ignore config files & directories
+.vscode
+packages/boilerplate
+packages/generator

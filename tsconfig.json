@@ -1,0 +1,15 @@
+// A 'solution' tsconfig, used to support Typescript Project References
+// https://www.typescriptlang.org/docs/handbook/project-references.html#overall-structure
+{
+  "files": [],
+  "references": [
+    { "path": "packages/boilerplate" },
+    { "path": "packages/boilerplate/shared" },
+    { "path": "packages/boilerplate/templates/preact" },
+    { "path": "packages/boilerplate/templates/react" },
+    { "path": "packages/boilerplate/templates/vue" },
+    { "path": "packages/cli" },
+    { "path": "packages/generator" },
+    { "path": "packages/templates" }
+  ]
+}
