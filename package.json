@@ -4,6 +4,9 @@
   "description": "CLI & UI package for scaffolding @vite-plugin-ssr boilerplates",
   "private": true,
   "packageManager": "pnpm@7.1.7",
+  "bin": {
+    "create-vite-plugin-ssr": "./packages/cli/bin/cli.js"
+  },
   "scripts": {
     "========= Only allow pnpm; forbid yarn & npm": "",
     "preinstall": "npx only-allow pnpm",
