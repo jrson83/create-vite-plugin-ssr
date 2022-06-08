@@ -1,5 +1,6 @@
 {
   "name": "@create-vite-plugin-ssr/templates",
+  "version": "0.1.0",
   "description": "Template package with generated @vite-plugin-ssr boilerplates",
   "private": false,
   "scripts": {

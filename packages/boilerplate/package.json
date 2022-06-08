@@ -1,5 +1,6 @@
 {
   "name": "@create-vite-plugin-ssr/boilerplate",
+  "version": "0.1.0",
   "description": "UI package for developing @vite-plugin-ssr boilerplates",
   "private": false,
   "types": "./shim.d.ts",

@@ -1,5 +1,6 @@
 {
   "name": "@create-vite-plugin-ssr/generator",
+  "version": "0.1.0",
   "description": "Generator package for scaffolding @vite-plugin-ssr boilerplates",
   "private": false,
   "scripts": {
