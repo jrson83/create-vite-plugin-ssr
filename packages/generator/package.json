@@ -5,8 +5,8 @@
   "private": false,
   "scripts": {
     "========= Build": "",
-    "build:ts": "cross-env GENERATOR_STYLE=tsTasks ts-node -P ./tsconfig.json ./src",
-    "build:js": "cross-env GENERATOR_STYLE=jsTasks ts-node -P ./tsconfig.json ./src"
+    "build:ts": "cross-env CODE_STYLE=tsTaskList ts-node -P ./tsconfig.json ./src",
+    "build:js": "cross-env CODE_STYLE=jsTaskList ts-node -P ./tsconfig.json ./src"
   },
   "devDependencies": {
     "@create-vite-plugin-ssr/boilerplate": "workspace:^",

@@ -1,11 +1,17 @@
 import path from 'path'
 import { promises as fs } from 'fs'
+import { Config } from './config'
+import type { CodeStyle, ITask } from './types'
 
-export function runTasks(tasks: any) {
+export function runTasks(codeStyle: CodeStyle) {
+  if (!Config.hasOwnProperty(codeStyle)) throw new Error('Wrong usage of `process.env.CODE_STYLE`')
+
+  const tasks: ITask[] = Config[codeStyle]
+
   process.stdout.write(
-    `\x1b[45m ${process.env.npm_package_name} \x1b[49m Building ${
-      process.env.GENERATOR_STYLE === 'tsTasks' ? 'Typescript' : 'JavaScript'
-    } Templates\n\n`
+    `\x1b[45m ${process.env.npm_package_name} \x1b[49m \x1b[2mBuilding ${
+      codeStyle === 'jsTaskList' ? 'JavaScript' : 'TypeScript'
+    } Templates\x1b[22m\n\n`
   )
   let result = Promise.resolve()
   tasks.forEach((t: any) => {
