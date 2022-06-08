@@ -1,7 +1,7 @@
 import renderToString from 'preact-render-to-string'
 import { PageShell } from './PageShell'
 import { escapeInject, dangerouslySkipEscape } from 'vite-plugin-ssr'
-import logoUrl from './logo.svg'
+import logoUrl from '@create-vite-plugin-ssr/shared/renderer/logo.svg'
 import type { PageContext } from './types'
 import type { PageContextBuiltIn } from 'vite-plugin-ssr'
 
