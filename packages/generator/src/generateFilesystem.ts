@@ -8,9 +8,11 @@ import type { UIOptions } from '@create-vite-plugin-ssr/cli/src/types'
 const uiDirectories = getUiDirs()
 
 export function getUiDirs() {
-  return uiOptions.map((ui) => {
-    return `${ui.toLowerCase()}`
-  })
+  return uiOptions.map(getUiDir)
+}
+function getUiDir(ui: UIOptions) {
+  const uiDir = ui.toLowerCase()
+  return uiDir
 }
 
 export async function createUiDirs() {
@@ -80,7 +82,8 @@ export async function generateJsTemplates() {
   }
 }
 
-export const replaceES6Imports = async (uiDir: UIOptions, file: string) => {
+export const replaceES6Imports = async (ui: UIOptions, file: string) => {
+  const uiDir = getUiDir(ui)
   let content = await fs.readFile(`${templateRootDir}/${uiDir}/${file}`, { encoding: 'utf-8' })
 
   content = content.replace(
@@ -91,7 +94,8 @@ export const replaceES6Imports = async (uiDir: UIOptions, file: string) => {
   await fs.writeFile(`${templateRootDir}/${uiDir}/${file}`, content, { encoding: 'utf-8' })
 }
 
-export const replaceWorkspaceImports = async (uiDir: UIOptions, file: string) => {
+export const replaceWorkspaceImports = async (ui: UIOptions, file: string) => {
+  const uiDir = getUiDir(ui)
   let content = await fs.readFile(`${templateRootDir}/${uiDir}-ts/${file}`, { encoding: 'utf-8' })
 
   content = content.replace(
