@@ -24,7 +24,7 @@
     "dev:react": "pnpm run --filter @create-vite-plugin-ssr/template-react dev",
     "dev:vue": "pnpm run --filter @create-vite-plugin-ssr/template-vue dev",
     "========= Build": "",
-    "build": "echo \"Please specify either CLI or TypeScript/JavaScript for building templates: build:cli | build:ts|js\"",
+    "build": "pnpm run build:cli && pnpm run build:ts && pnpm run build:js",
     "build:cli": "pnpm run --filter @create-vite-plugin-ssr/cli build",
     "build:ts": "pnpm run --filter @create-vite-plugin-ssr/generator build:ts",
     "build:js": "pnpm run --filter @create-vite-plugin-ssr/generator build:js",
