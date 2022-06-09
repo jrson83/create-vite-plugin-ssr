@@ -9,6 +9,7 @@ import {
   copyUiDirs,
   createUiDirs,
   generateJsTemplates,
+  removeExistingUiDirs,
   replaceES6Imports
 } from '../generateFilesystem'
 import type { IConfig } from '../types'
@@ -21,6 +22,12 @@ const templateRootDir = path.join(cwd, '..', 'templates')
 
 const Config: IConfig = Object.freeze({
   tsTaskList: [
+    {
+      title: 'Remove existing UI directories',
+      async task() {
+        await removeExistingUiDirs()
+      }
+    },
     {
       title: 'Created UI directories',
       async task() {
