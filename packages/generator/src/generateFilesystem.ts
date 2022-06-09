@@ -15,6 +15,17 @@ function getUiDir(ui: UIOptions) {
   return uiDir
 }
 
+export async function removeExistingUiDirs() {
+  for (const dir of uiDirectories) {
+    await Promise.all(
+      ['', '-ts'].map(async (suffix) => {
+        const dirPath = `${templateRootDir}/${dir}${suffix}`
+        await fs.rm(dirPath, { recursive: true, force: true })
+      })
+    )
+  }
+}
+
 export async function createUiDirs() {
   for (const dir of uiDirectories) {
     await fs.mkdir(`${templateRootDir}/${dir}-ts`, { recursive: true })
@@ -43,7 +54,7 @@ export async function copyUiDirs() {
 
 export async function copyGitIgnore(typescript: boolean) {
   for (const uiDir of uiDirectories) {
-    await copyFile(`${sharedRootDir}/_gitignore`, `${templateRootDir}/${uiDir}${typescript ? `-ts` : ``}/_gitignore`)
+    await copyFile(`${sharedRootDir}/_gitignore`, `${templateRootDir}/${uiDir}${typescript ? `-ts` : ``}/.gitignore`)
   }
 }
 
