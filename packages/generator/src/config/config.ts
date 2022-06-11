@@ -10,7 +10,8 @@ import {
   createUiDirs,
   generateJsTemplates,
   removeExistingUiDirs,
-  replaceES6Imports
+  replaceES6Imports,
+  replaceWorkspaceImports
 } from '../generateFilesystem'
 import type { IConfig } from '../types'
 
@@ -75,6 +76,12 @@ const Config: IConfig = Object.freeze({
           await generateViteConfig(ui)
         }
       }
+    },
+    {
+      title: 'Replaced imports',
+      async task() {
+        await replaceWorkspaceImports()
+      }
     }
   ],
   jsTaskList: [
@@ -101,9 +108,7 @@ const Config: IConfig = Object.freeze({
     {
       title: 'Replaced imports',
       async task() {
-        for (const ui of uiOptions) {
-          await replaceES6Imports(ui, 'server/index.js')
-        }
+        await replaceES6Imports()
       }
     }
   ]

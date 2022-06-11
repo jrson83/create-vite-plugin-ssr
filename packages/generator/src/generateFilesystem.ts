@@ -3,13 +3,14 @@ import { transformFile } from 'detype'
 import { copyFilesEnsure, copyFile, listFilesRecursive, pathExists } from './utils'
 import { boilerplateRootDir, sharedRootDir, templateRootDir } from './config'
 import { boilerplateConfig, uiOptions } from '@create-vite-plugin-ssr/cli/src/config'
-import type { UIOptions } from '@create-vite-plugin-ssr/cli/src/types'
+import type { UIOptions, UIOption } from '@create-vite-plugin-ssr/cli/src/types'
 
 const uiDirectories = getUiDirs()
 
 export function getUiDirs() {
   return uiOptions.map(getUiDir)
 }
+
 function getUiDir(ui: UIOptions) {
   const uiDir = ui.toLowerCase()
   return uiDir
@@ -93,24 +94,22 @@ export async function generateJsTemplates() {
   }
 }
 
-export const replaceES6Imports = async (ui: UIOptions, file: string) => {
-  const uiDir = getUiDir(ui)
-  let content = await fs.readFile(`${templateRootDir}/${uiDir}/${file}`, { encoding: 'utf-8' })
+export const replaceWorkspaceImports = async () => {
+  const { workspaceImportsToReplace } = boilerplateConfig
 
-  content = content.replace(
-    /^import\s\{?\s?(?<import>[a-zA-Z]+)\s?\}?\sfrom\s['"](?<lib>[a-zA-Z\.\/-]+)['"].*/gm,
-    `const $<import> = require('$<lib>')`
-  )
-
-  await fs.writeFile(`${templateRootDir}/${uiDir}/${file}`, content, { encoding: 'utf-8' })
+  for (const [ui, files] of Object.entries(workspaceImportsToReplace) as any) {
+    for (const file of files) {
+      await replaceWorkspaceImport(ui, file)
+    }
+  }
 }
 
-export const replaceWorkspaceImports = async (ui: UIOptions, file: string) => {
+export const replaceWorkspaceImport = async (ui: UIOption, file: string) => {
   const uiDir = getUiDir(ui)
   let content = await fs.readFile(`${templateRootDir}/${uiDir}-ts/${file}`, { encoding: 'utf-8' })
 
   content = content.replace(
-    /^import\s\{?\s?(?<import>[a-zA-Z]+)\s?\}?\sfrom\s['"]@create-vite-plugin-ssr\/shared\/(?<lib>[a-zA-Z\.\/-]+)['"].*/gm,
+    /^import\s\{?\s?(?<import>[a-zA-Z]+)\s?\}?\sfrom\s['"]@create-vite-plugin-ssr\/shared\/[a-zA-Z\.\/-]+\/(?<lib>[a-zA-Z\.\/-]+)['"].*/gm,
     `import $<import> from './$<lib>'`
   )
 
@@ -120,4 +119,25 @@ export const replaceWorkspaceImports = async (ui: UIOptions, file: string) => {
   )
 
   await fs.writeFile(`${templateRootDir}/${uiDir}-ts/${file}`, content, { encoding: 'utf-8' })
+}
+
+export const replaceES6Imports = async () => {
+  const { es6ImportsToReplace } = boilerplateConfig
+
+  for (const uiDir of uiDirectories) {
+    for (const file of es6ImportsToReplace) {
+      await replaceES6Import(uiDir, file)
+    }
+  }
+}
+
+export const replaceES6Import = async (uiDir: string, file: string) => {
+  let content = await fs.readFile(`${templateRootDir}/${uiDir}/${file}`, { encoding: 'utf-8' })
+
+  content = content.replace(
+    /^import\s\{?\s?(?<import>[a-zA-Z]+)\s?\}?\sfrom\s['"](?<lib>[a-zA-Z\.\/-]+)['"].*/gm,
+    `const $<import> = require('$<lib>')`
+  )
+
+  await fs.writeFile(`${templateRootDir}/${uiDir}/${file}`, content, { encoding: 'utf-8' })
 }

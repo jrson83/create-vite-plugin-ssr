@@ -50,8 +50,16 @@ const Config: IConfig = Object.freeze({
     copySharedDirectories: ['pages', 'renderer', 'server'],
     // UI directories to include when generating `ts` templates
     copyUiDirectories: ['pages/about', 'pages/index', 'renderer'],
+    // Replace @workspace-imports in `ts` templates
+    workspaceImportsToReplace: {
+      Preact: ['pages/about/index.page.tsx', 'renderer/_default.page.server.tsx', 'renderer/PageShell.tsx'],
+      React: ['pages/about/index.page.tsx', 'renderer/_default.page.server.tsx', 'renderer/PageShell.tsx'],
+      Vue: ['renderer/_default.page.server.ts', 'renderer/PageShell.vue']
+    },
     // Files to exclude when generating `js` templates
     filesToExclude: ['package.json', 'tsconfig.json', 'types.ts'],
+    // `js` files to replace imports with require
+    es6ImportsToReplace: ['server/index.js'],
     // File extensions to include when generating `js` templates
     extensionsToProcess: /\.(ts|tsx|vue)$/,
     // File extensions to copy when generating `js` templates

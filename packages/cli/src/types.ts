@@ -20,7 +20,11 @@ export interface IConfig {
   boilerplateConfig: {
     copySharedDirectories: Array<string>
     copyUiDirectories: Array<string>
+    workspaceImportsToReplace: {
+      [key in UIOption as string]: Array<string>
+    }
     filesToExclude: Array<string>
+    es6ImportsToReplace: Array<string>
     extensionsToProcess: any
     extensionsToCopy: any
     extensionsToRename: any
