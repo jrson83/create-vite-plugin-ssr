@@ -104,7 +104,7 @@ export const replaceWorkspaceImports = async () => {
   }
 }
 
-export const replaceWorkspaceImport = async (ui: UIOption, file: string) => {
+const replaceWorkspaceImport = async (ui: UIOption, file: string) => {
   const uiDir = getUiDir(ui)
   let content = await fs.readFile(`${templateRootDir}/${uiDir}-ts/${file}`, { encoding: 'utf-8' })
 
@@ -131,7 +131,7 @@ export const replaceES6Imports = async () => {
   }
 }
 
-export const replaceES6Import = async (uiDir: string, file: string) => {
+const replaceES6Import = async (uiDir: string, file: string) => {
   let content = await fs.readFile(`${templateRootDir}/${uiDir}/${file}`, { encoding: 'utf-8' })
 
   content = content.replace(
